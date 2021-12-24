@@ -4,7 +4,6 @@ import {Cell} from "./Cell";
 
 class Field {
     map;
-    FREE_CELL = 0;
     DEFAULT_SHIPS_SET = [
         {
             shipLen: 1,
@@ -31,7 +30,7 @@ class Field {
 
         for (let row = 0; row < 10; row++)
             for (let column = 0; column < 10; column++)
-                this.map[row][column] = new Cell(this.FREE_CELL, row, column);
+                this.map[row][column] = new Cell(row, column);
 
         this.initMap();
         console.log(this);
@@ -51,7 +50,7 @@ class Field {
         while(!success) {
             let row = genRandom(0, 9);
             let column = genRandom(0, 9);
-            if (this.map[row][column].value !== this.FREE_CELL) continue;
+            if (!this.map[row][column].isEmpty()) continue;
 
             success |= this.tryToPlaceHorizontally(ship, row, column);
             if (!success) success |= this.tryToPlaceVertically(ship, row, column);
@@ -64,15 +63,15 @@ class Field {
         for (let i = -1; i < ship.len + 1 && success; i++) {
             if (row + i > 10 || row + i < -1) success = false;
             else if (row + i === 10 || row + i === -1) continue;
-            else if (this.map[row + i][column].value !== this.FREE_CELL ||
-                (column > 0 && this.map[row + i][column - 1].value !== this.FREE_CELL || column === 0) ||
-                (column < 9 && this.map[row + i][column + 1].value !== this.FREE_CELL || column === 9)
+            else if (!this.map[row + i][column].isEmpty() ||
+                (column > 0 && !this.map[row + i][column - 1].isEmpty() || column === 0) ||
+                (column < 9 && !this.map[row + i][column + 1].isEmpty() || column === 9)
             ) success = false;
         }
 
         for (let i = 0; i < ship.len && success; i++) {
             this.map[row + i][column].value = ship.id;
-            ship.occupiedCells.push(this.map[row + i][column]);
+            ship._occupiedCells.push(this.map[row + i][column]);
         }
 
         return success;
@@ -84,15 +83,15 @@ class Field {
         for (let i = -1; i < ship.len + 1 && success; i++) {
             if (column + i > 10 || column + i < -1) success = false;
             else if (column + i === 10 || column + i === -1) continue;
-            else if (this.map[row][column + i].value !== this.FREE_CELL ||
-                (row > 0 && this.map[row - 1][column + i].value !== this.FREE_CELL || row === 0) ||
-                (row < 9 && this.map[row + 1][column + i].value !== this.FREE_CELL || row === 9)
+            else if (!this.map[row][column + i].isEmpty() ||
+                (row > 0 && !this.map[row - 1][column + i].isEmpty() || row === 0) ||
+                (row < 9 && !this.map[row + 1][column + i].isEmpty() || row === 9)
             ) success = false;
         }
 
         for (let i = 0; i < ship.len && success; i++) {
             this.map[row][column + i].value = ship.id;
-            ship.occupiedCells.push(this.map[row][column + i]);
+            ship._occupiedCells.push(this.map[row][column + i]);
         }
 
         return success;

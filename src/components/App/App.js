@@ -2,7 +2,7 @@ import Field from "../../Game/Field";
 import {useState} from "react";
 
 let field = new Field();
-
+window.field = field;
 function App() {
     const [hitRow, setHitRow] = useState(-1);
     const [hitColumn, setHitColumn] = useState(-1);

@@ -3,17 +3,21 @@ import {genId} from "../utils";
 class Ship {
     len;
     id;
-    occupiedCells = [];   // [Cell,...]
+    _occupiedCells = [];   // [Cell,...]
+    _destroyed = false;
     constructor(len) {
         this.len = len;
         this.id = genId();
     }
 
     hit = (row, column) => {
-        let cell = this.occupiedCells.find(cell => cell.row === row && cell.column === column);
+        let cell = this._occupiedCells.find(cell => cell.row === row && cell.column === column);
         if (cell) cell.hit();
+        this._destroyed = this._occupiedCells.every(cell => cell.isHit());
         return cell;
-    }
+    };
+
+    isDestroyed = () => this._destroyed;
 }
 
 export default Ship;

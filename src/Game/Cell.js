@@ -1,10 +1,10 @@
 export class Cell {
-    value;
+    static EMPTY_VALUE = 0;
+    value = Cell.EMPTY_VALUE;
     _row;
     _column;
     _hit = false;
-    constructor(value, row, column) {
-        this.value = value;
+    constructor(row, column) {
         this._row = row;
         this._column = column;
     }
@@ -18,5 +18,6 @@ export class Cell {
 
     hit = () => this._hit = true;
     isHit = () => this._hit;
+    isEmpty = () => this.value === Cell.EMPTY_VALUE;
 }
 
