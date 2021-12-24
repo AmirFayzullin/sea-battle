@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template: repeat(10, 1fr) / 100%;
+}
+
+.App > div {
+  display: grid;
+  grid-template: 100% / repeat(10, 1fr);
+}
+
+.App > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+

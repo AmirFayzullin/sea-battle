@@ -56,8 +56,14 @@ class Field {
 
     tryToPlaceHorizontally = (ship, row, column) => {
         let success = true;
-        for (let i = 0; i < ship.len && success; i++) {
-            if (this.map[row + i][column] !== this.FREE_CELL ||
+
+        //success &= row === 0 || this.map[row - 1][column] === this.FREE_CELL;
+        //success &= row + ship.len + 1 >= 9 || this.map[row + ship.len + 1][column] === this.FREE_CELL;
+
+        for (let i = -1; i < ship.len + 1 && success; i++) {
+            if (row + i > 10 || row + i < -1) success = false;
+            else if (row + i === 10 || row + i === -1) continue;
+            else if (this.map[row + i][column] !== this.FREE_CELL ||
                 (column > 0 && this.map[row + i][column - 1] !== this.FREE_CELL || column === 0) ||
                 (column < 9 && this.map[row + i][column + 1] !== this.FREE_CELL || column === 9)
             ) success = false;
@@ -73,8 +79,14 @@ class Field {
 
     tryToPlaceVertically = (ship, row, column) => {
         let success = true;
-        for (let i = 0; i < ship.len && success; i++) {
-            if (this.map[row][column + i] !== this.FREE_CELL ||
+
+        //success &= column === 0 || this.map[row][column - 1] === this.FREE_CELL;
+        //success &= column + ship.len + 1 >= 9 || this.map[row][column + ship.len + 1] === this.FREE_CELL;
+
+        for (let i = -1; i < ship.len + 1 && success; i++) {
+            if (column + i > 10 || column + i < -1) success = false;
+            else if (column + i === 10 || column + i === -1) continue;
+            else if (this.map[row][column + i] !== this.FREE_CELL ||
                 (row > 0 && this.map[row - 1][column + i] !== this.FREE_CELL || row === 0) ||
                 (row < 9 && this.map[row + 1][column + i] !== this.FREE_CELL || row === 9)
             ) success = false;
