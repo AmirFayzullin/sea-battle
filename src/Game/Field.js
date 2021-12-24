@@ -1,5 +1,6 @@
 import Ship from "./Ship";
 import {genRandom} from "../utils";
+import {Cell} from "./Cell";
 
 class Field {
     map;
@@ -26,11 +27,14 @@ class Field {
 
     constructor() {
         this.map = Array(10).fill(0, 0, 11)
-            .map(() =>
-                Array(10).fill(this.FREE_CELL, 0, 11)
-            );
+            .map(() => Array(10).fill(0, 0, 11));
+
+        for (let row = 0; row < 10; row++)
+            for (let column = 0; column < 10; column++)
+                this.map[row][column] = new Cell(this.FREE_CELL, row, column);
 
         this.initMap();
+        console.log(this);
     }
 
     initMap = () => {
@@ -47,7 +51,7 @@ class Field {
         while(!success) {
             let row = genRandom(0, 9);
             let column = genRandom(0, 9);
-            if (this.map[row][column] !== this.FREE_CELL) continue;
+            if (this.map[row][column].value !== this.FREE_CELL) continue;
 
             success |= this.tryToPlaceHorizontally(ship, row, column);
             if (!success) success |= this.tryToPlaceVertically(ship, row, column);
@@ -57,21 +61,18 @@ class Field {
     tryToPlaceHorizontally = (ship, row, column) => {
         let success = true;
 
-        //success &= row === 0 || this.map[row - 1][column] === this.FREE_CELL;
-        //success &= row + ship.len + 1 >= 9 || this.map[row + ship.len + 1][column] === this.FREE_CELL;
-
         for (let i = -1; i < ship.len + 1 && success; i++) {
             if (row + i > 10 || row + i < -1) success = false;
             else if (row + i === 10 || row + i === -1) continue;
-            else if (this.map[row + i][column] !== this.FREE_CELL ||
-                (column > 0 && this.map[row + i][column - 1] !== this.FREE_CELL || column === 0) ||
-                (column < 9 && this.map[row + i][column + 1] !== this.FREE_CELL || column === 9)
+            else if (this.map[row + i][column].value !== this.FREE_CELL ||
+                (column > 0 && this.map[row + i][column - 1].value !== this.FREE_CELL || column === 0) ||
+                (column < 9 && this.map[row + i][column + 1].value !== this.FREE_CELL || column === 9)
             ) success = false;
         }
 
         for (let i = 0; i < ship.len && success; i++) {
-            this.map[row + i][column] = ship.id;
-            ship.occupiedCells.push([row + i, column]);
+            this.map[row + i][column].value = ship.id;
+            ship.occupiedCells.push(this.map[row + i][column]);
         }
 
         return success;
@@ -80,24 +81,27 @@ class Field {
     tryToPlaceVertically = (ship, row, column) => {
         let success = true;
 
-        //success &= column === 0 || this.map[row][column - 1] === this.FREE_CELL;
-        //success &= column + ship.len + 1 >= 9 || this.map[row][column + ship.len + 1] === this.FREE_CELL;
-
         for (let i = -1; i < ship.len + 1 && success; i++) {
             if (column + i > 10 || column + i < -1) success = false;
             else if (column + i === 10 || column + i === -1) continue;
-            else if (this.map[row][column + i] !== this.FREE_CELL ||
-                (row > 0 && this.map[row - 1][column + i] !== this.FREE_CELL || row === 0) ||
-                (row < 9 && this.map[row + 1][column + i] !== this.FREE_CELL || row === 9)
+            else if (this.map[row][column + i].value !== this.FREE_CELL ||
+                (row > 0 && this.map[row - 1][column + i].value !== this.FREE_CELL || row === 0) ||
+                (row < 9 && this.map[row + 1][column + i].value !== this.FREE_CELL || row === 9)
             ) success = false;
         }
 
         for (let i = 0; i < ship.len && success; i++) {
-            this.map[row][column + i] = ship.id;
-            ship.occupiedCells.push([row, column + i]);
+            this.map[row][column + i].value = ship.id;
+            ship.occupiedCells.push(this.map[row][column + i]);
         }
 
         return success;
+    };
+
+    performHit = (row, column) => {
+        this.ships.forEach(ship => {
+            if (ship.hit(row, column)) console.log(ship.id);
+        });
     }
 }
 
