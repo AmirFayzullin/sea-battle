@@ -9,7 +9,7 @@ const Field = ({map, isMyField, performHit}) => {
                  key={columnIndex}
                  performHit={() => !isMyField && performHit(rowIndex, columnIndex)}
                  isHit={cell.isHit()}
-                 value={cell.value}
+                 isShip={cell.isShip()}
                  isMyCell={isMyField}
              />
          });

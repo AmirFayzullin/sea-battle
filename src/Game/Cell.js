@@ -19,5 +19,6 @@ export class Cell {
     hit = () => this._hit = true;
     isHit = () => this._hit;
     isEmpty = () => this.value === Cell.EMPTY_VALUE;
+    isShip = () => this.value !== Cell.EMPTY_VALUE;
 }
 
