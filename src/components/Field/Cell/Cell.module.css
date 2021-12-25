@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: solid 1px;
+    border: solid 5px;
     cursor: pointer;
     background: hsl(210, 50%, 50%);
     box-sizing: border-box;
@@ -16,7 +16,7 @@
 }
 
 .cell.hit {
-    border: solid 1px red;
+    border: solid 5px red;
 }
 
 .cell.enemyCell {

@@ -12,6 +12,9 @@ export class Player {
     constructor(gameManager) {
         this.id = genId();
         this.field = new Field();
+
+        while(!this.field.isInitialized()) this.field = new Field();
+
         this._gameManager = gameManager;
         this._gameManager.subscribe(this._handleManagerUpdate);
     }
@@ -38,7 +41,7 @@ export class Player {
     };
 
     takeHit = (row, column) => {
-        this.field.performHit(row, column);
+        return this.field.performHit(row, column);
     };
 
     isLose = () => this.field.areAllShipsDestroyed();

@@ -7,23 +7,25 @@ class Field {
     _DEFAULT_SHIPS_SET = [
         {
             shipLen: 1,
+            count: 4
+        },
+        {
+            shipLen: 2,
+            count: 3
+        },
+        {
+            shipLen: 3,
             count: 2
         },
-        // {
-        //     shipLen: 2,
-        //     count: 3
-        // },
-        // {
-        //     shipLen: 3,
-        //     count: 2
-        // },
-        // {
-        //     shipLen: 4,
-        //     count: 1
-        // }
+        {
+            shipLen: 4,
+            count: 1
+        }
     ];
+    _PLACING_ATTEMPTS_COUNT = 500;
     _ships = [];
     _areAllShipsDestroyed = false;
+    _initialized = false;
 
     constructor() {
         this.map = Array(10).fill(0, 0, 11)
@@ -34,31 +36,36 @@ class Field {
                 this.map[row][column] = new Cell(row, column);
 
         this.initMap();
-        console.log(this);
     }
 
     initMap = () => {
+        let success = true;
         this._DEFAULT_SHIPS_SET.forEach((shipsSet) => {
-            for (let i = 0; i < shipsSet.count; i++) this.placeShip(shipsSet.shipLen);
+            for (let i = 0; i < shipsSet.count; i++) success &= this.placeShip(shipsSet.shipLen);
         });
+
+        this._initialized = success;
     };
 
     placeShip = (shipLen) => {
         let ship = new Ship(shipLen);
         this._ships.push(ship);
         let success = false;
+        let counter = this._PLACING_ATTEMPTS_COUNT;
 
-        while(!success) {
+        while(!success && counter--) {
             let row = genRandom(0, 9);
             let column = genRandom(0, 9);
             if (!this.map[row][column].isEmpty()) continue;
 
-            success |= this.tryToPlaceHorizontally(ship, row, column);
-            if (!success) success |= this.tryToPlaceVertically(ship, row, column);
+            success |= this._tryToPlaceHorizontally(ship, row, column);
+            if (!success) success |= this._tryToPlaceVertically(ship, row, column);
         }
+
+        return success;
     };
 
-    tryToPlaceHorizontally = (ship, row, column) => {
+    _tryToPlaceHorizontally = (ship, row, column) => {
         let success = true;
 
         for (let i = -1; i < ship.len + 1 && success; i++) {
@@ -78,7 +85,7 @@ class Field {
         return success;
     };
 
-    tryToPlaceVertically = (ship, row, column) => {
+    _tryToPlaceVertically = (ship, row, column) => {
         let success = true;
 
         for (let i = -1; i < ship.len + 1 && success; i++) {
@@ -100,6 +107,7 @@ class Field {
 
     performHit = (row, column) => {
         let shipHit = false;
+
         this._ships.forEach(ship => {
             if (ship.hit(row, column)) {
                 shipHit = true;
@@ -107,15 +115,17 @@ class Field {
             }
         });
 
-        if (shipHit) this.checkShipsDestroy();
+        if (shipHit) this._checkShipsDestroy();
         else this.map[row][column].hit();
+
+        return shipHit;
     };
 
-    checkShipsDestroy = () => {
+    _checkShipsDestroy = () => {
         this._areAllShipsDestroyed = this._ships.every(ship => ship.isDestroyed());
     };
 
-    isHitCell = (row, column) => this.map[row][column].isHit();
+    isInitialized = () => this._initialized;
 
     areAllShipsDestroyed = () => this._areAllShipsDestroyed;
 }

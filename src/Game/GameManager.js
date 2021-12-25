@@ -54,7 +54,7 @@ export class GameManager {
 
     performHit = (row, column) => {
         const victim = this.getIdlePlayer();
-        victim.takeHit(row, column);
+        const shipHit = victim.takeHit(row, column);
 
         if (victim.isLose()) {
             this.state = {
@@ -64,7 +64,9 @@ export class GameManager {
                 playerMakingTurn: null
             };
         }
-        else this.changePlayerMakingTurn();
+        else if (!shipHit) {
+            this.changePlayerMakingTurn();
+        }
         this.notifyListeners();
     };
 

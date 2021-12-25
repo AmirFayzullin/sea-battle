@@ -7,7 +7,9 @@ const ResultsWidget = ({winnerName, startNewGame}) => {
     return (
         <div className={s.wrapper}>
             <div className={s.widget}>
-                <div className={s.title}>{"lool"} won!</div>
+                <div className={s.title}>
+                    { (winnerName || "lool") + " won!" }
+                </div>
                 <Button onClick={() => startNewGame()}>Play again!</Button>
             </div>
         </div>
@@ -15,7 +17,7 @@ const ResultsWidget = ({winnerName, startNewGame}) => {
 };
 
 const mstp = (state) => ({
-    winnerName: state.game.gameState.winner?.name
+    winnerName: state.game.gameState?.winner?.name
 });
 
 export default connect(mstp)(ResultsWidget);
