@@ -12,8 +12,8 @@ const Scene = ({enemyField, myField, performHit}) => {
                 <SceneHeader/>
             </header>
             <div className={s.fields}>
-                <Field map={myField.map} performHit={() => {}} isMyField={true}/>
-                <Field map={enemyField.map} performHit={(row, column) => performHit(row, column)} isMyField={false}/>
+                <Field map={myField.map} field={myField} performHit={() => {}} isMyField={true}/>
+                <Field map={enemyField.map} field={enemyField} performHit={(row, column) => performHit(row, column)} isMyField={false}/>
             </div>
         </div>
     )

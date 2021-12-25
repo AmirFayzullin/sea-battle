@@ -1,24 +1,33 @@
 import React from 'react';
 import Cell from "./Cell/Cell";
 import s from './Field.module.css';
+import Ship from "./Ship/Ship";
 
-const Field = ({map, isMyField, performHit}) => {
-     map = map.map((row, rowIndex) => {
-         let r = row.map((cell, columnIndex) => {
-             return <Cell
-                 key={columnIndex}
-                 performHit={() => !isMyField && performHit(rowIndex, columnIndex)}
-                 isHit={cell.isHit()}
-                 isShip={cell.isShip()}
-                 isMyCell={isMyField}
-             />
-         });
-         return <div className={s.row} key={rowIndex}>{r}</div>
-     });
+const Field = ({map, field, isMyField, performHit}) => {
+    let totalShipsLen = 0;
+    let ships = field._ships.map((ship, index) => {
+        totalShipsLen += ship.len;
+        return <Ship key={index} ship={ship} performHit={performHit} myShip={isMyField}/>;
+    });
+
+    let emptyCells = [];
+    map.flat().forEach((cell, index) => {
+        if (cell.isShip()) return;
+
+        emptyCells.push(
+            <Cell key={index}
+                  performHit={() => !isMyField && performHit(cell.row, cell.column)}
+                  isHit={cell.isHit()}
+                  isShip={cell.isShip()}
+                  isMyCell={isMyField}
+            />
+        )
+    });
 
     return (
         <div className={s.field}>
-            {map}
+            {ships}
+            {emptyCells}
         </div>
     )
 };
