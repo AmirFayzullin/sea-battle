@@ -4,25 +4,26 @@ import {Cell} from "./Cell";
 
 class Field {
     map;
-    DEFAULT_SHIPS_SET = [
+    _DEFAULT_SHIPS_SET = [
         {
             shipLen: 1,
-            count: 4
-        },
-        {
-            shipLen: 2,
-            count: 3
-        },
-        {
-            shipLen: 3,
             count: 2
         },
-        {
-            shipLen: 4,
-            count: 1
-        }
+        // {
+        //     shipLen: 2,
+        //     count: 3
+        // },
+        // {
+        //     shipLen: 3,
+        //     count: 2
+        // },
+        // {
+        //     shipLen: 4,
+        //     count: 1
+        // }
     ];
-    ships = [];
+    _ships = [];
+    _areAllShipsDestroyed = false;
 
     constructor() {
         this.map = Array(10).fill(0, 0, 11)
@@ -37,14 +38,14 @@ class Field {
     }
 
     initMap = () => {
-        this.DEFAULT_SHIPS_SET.forEach((shipsSet) => {
+        this._DEFAULT_SHIPS_SET.forEach((shipsSet) => {
             for (let i = 0; i < shipsSet.count; i++) this.placeShip(shipsSet.shipLen);
         });
     };
 
     placeShip = (shipLen) => {
         let ship = new Ship(shipLen);
-        this.ships.push(ship);
+        this._ships.push(ship);
         let success = false;
 
         while(!success) {
@@ -98,10 +99,25 @@ class Field {
     };
 
     performHit = (row, column) => {
-        this.ships.forEach(ship => {
-            if (ship.hit(row, column)) console.log(ship.id);
+        let shipHit = false;
+        this._ships.forEach(ship => {
+            if (ship.hit(row, column)) {
+                shipHit = true;
+                console.log(ship.id);
+            }
         });
-    }
+
+        if (shipHit) this.checkShipsDestroy();
+        else this.map[row][column].hit();
+    };
+
+    checkShipsDestroy = () => {
+        this._areAllShipsDestroyed = this._ships.every(ship => ship.isDestroyed());
+    };
+
+    isHitCell = (row, column) => this.map[row][column].isHit();
+
+    areAllShipsDestroyed = () => this._areAllShipsDestroyed;
 }
 
 export default Field;

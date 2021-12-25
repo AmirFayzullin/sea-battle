@@ -1,8 +1,12 @@
 import Field from "../../Game/Field";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {GameManager} from "../../Game/GameManager";
+import {genId, genRandom} from "../../utils";
 
-let field = new Field();
+let game = new GameManager();
+let field = game.players[1].field;
 window.field = field;
+window.game = game;
 function App() {
     const [hitRow, setHitRow] = useState(-1);
     const [hitColumn, setHitColumn] = useState(-1);
@@ -10,10 +14,17 @@ function App() {
     field.map.forEach((row, rowIndex) => {
         let cells = [];
         row.forEach((column, columnIndex) => {
-            cells.push(<div>{field.map[rowIndex][columnIndex].value}</div>);
+            cells.push(<div onClick={() => game.players[0].performHit(rowIndex, columnIndex)}>
+                <p>{field.map[rowIndex][columnIndex].value}</p>
+                <p>{field.map[rowIndex][columnIndex].isHit() ? "Hit" : "free"}</p>
+            </div>);
         });
         Map.push(<div>{cells}</div>);
     });
+
+    useEffect(() => {
+        game.subscribe(() => setHitRow(genId()));
+    }, []);
 
 
     return (
