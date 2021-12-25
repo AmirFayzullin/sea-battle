@@ -7,13 +7,13 @@ const Field = ({map, isMyField, performHit}) => {
          let r = row.map((cell, columnIndex) => {
              return <Cell
                  key={columnIndex}
-                 performHit={() => isMyField && performHit(rowIndex, columnIndex)}
+                 performHit={() => !isMyField && performHit(rowIndex, columnIndex)}
                  isHit={cell.isHit()}
                  value={cell.value}
                  isMyCell={isMyField}
              />
          });
-         return <div className={s.row}>{r}</div>
+         return <div className={s.row} key={rowIndex}>{r}</div>
      });
 
     return (

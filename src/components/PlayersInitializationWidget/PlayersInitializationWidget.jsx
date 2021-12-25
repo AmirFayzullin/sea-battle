@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {initializeNextPlayer} from "../../../store/gameReducer";
+import {initializeNextPlayer} from "../../store/gameReducer";
 import s from './PlayersInitializationWidget.module.css';
 import Input from "../formControls/Input/Input";
 import Button from "../formControls/Button/Button";

@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {handleGameManagerUpdate, startNewGame} from "../../../store/gameReducer";
+import {handleGameManagerUpdate, startNewGame} from "../../store/gameReducer";
 import PlayersInitializationWidget from "../PlayersInitializationWidget/PlayersInitializationWidget";
 import ResultsWidget from "../ResultsWidget/ResultsWidget";
 import Scene from "../Scene/Scene";

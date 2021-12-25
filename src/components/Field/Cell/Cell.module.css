@@ -1,0 +1,25 @@
+.cell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid 1px;
+    cursor: pointer;
+    background: hsl(210, 50%, 50%);
+    box-sizing: border-box;
+}
+
+.cell.ship {
+    background: grey;
+}
+
+.cell.hit {
+    border: solid 1px red;
+}
+
+.cell.enemyCell {
+    cursor: pointer;
+}
+

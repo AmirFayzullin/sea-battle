@@ -5,8 +5,8 @@
     transition: .2s;
     display: flex;
     justify-content: center;
-    cursor: pointer;
     user-select: none;
+    cursor: pointer;
 }
 
 .button:hover {
