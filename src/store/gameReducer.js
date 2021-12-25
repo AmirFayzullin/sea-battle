@@ -29,6 +29,7 @@ const gameReducer = (state = initialState, action) => {
 
         case START_NEW_GAME:
             const manager = new GameManager();
+
             newState = {
                 ...initialState,
                 manager,
