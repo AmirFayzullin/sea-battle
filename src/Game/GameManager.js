@@ -61,6 +61,12 @@ export class GameManager {
 
     getActivePlayer = () => this.players.find(player => player.id === this._playerIdWithCurrentTurn);
     getIdlePlayer = () => this.players.find(player => player.id !== this._playerIdWithCurrentTurn);
+    getRealPlayer = () => this.players.find(player => !player.isAI);
+    getAIPlayer = () => this.players.find(player => player.isAI);
+
+    getPlayerById = (id) => this.players.find(player => player.id === id);
+
+    getAIPlayerField = () => this.getAIPlayer().field;
 
     notifyListeners = () => {
         this.listeners.forEach(listener => listener());
