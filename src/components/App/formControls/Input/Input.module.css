@@ -1,0 +1,12 @@
+.input {
+    background: lightgrey;
+    outline: none;
+    border: solid 2px transparent;
+    padding: 5px 10px;
+    transition: .2s;
+}
+
+.input:focus {
+    background: transparent;
+    border-color: var(--main-control-theme);
+}

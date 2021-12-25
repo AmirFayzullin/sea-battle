@@ -1,0 +1,6 @@
+.control {
+    border-radius: 10px;
+    font-size: 1.2rem;
+    --main-control-theme: hsl(210, 60%, 50%);
+    --main-control-theme-darken: hsl(210, 60%, 40%);
+}
