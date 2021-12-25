@@ -25,12 +25,15 @@ export class GameManager {
         player.initialize(name);
         let uninitializedPlayer = this.players.find(player => !player.isInitialized());
 
-        if (!uninitializedPlayer) this.state = {...this.state, initialized: true, currentInitializingPlayerId: null};
+        if (!uninitializedPlayer) {
+            this.state = {...this.state, initialized: true, currentInitializingPlayerId: null};
+            this._startGame();
+        }
         else this.state.currentInitializingPlayerId = uninitializedPlayer.id;
         this.notifyListeners();
     };
 
-    startGame = () => {
+    _startGame = () => {
         if (!this.state.initialized) return;
         this.state.started = true;
         this._playerIdWithCurrentTurn = this.players.find(player => !player.isAI).id;
@@ -65,8 +68,6 @@ export class GameManager {
     getAIPlayer = () => this.players.find(player => player.isAI);
 
     getPlayerById = (id) => this.players.find(player => player.id === id);
-
-    getAIPlayerField = () => this.getAIPlayer().field;
 
     notifyListeners = () => {
         this.listeners.forEach(listener => listener());

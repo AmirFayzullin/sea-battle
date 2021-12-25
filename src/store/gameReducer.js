@@ -4,12 +4,13 @@ const initialState = {
     manager: null,
     gameState: null,
     enemyField: null,
+    myField: null,
     initializingPlayer: null,
+    gameLaunched: false,
 };
 
 const START_NEW_GAME = "GAME/START_NEW_GAME";
 const INITIALIZE_NEXT_PLAYER = "GAME/INITIALIZE_NEW_PLAYER";
-const RUN_GAME = "GAME/RUN_GAME";
 const PERFORM_HIT = "GAME/PERFORM_HIT";
 
 const gameReducer = (state = initialState, action) => {
@@ -18,21 +19,20 @@ const gameReducer = (state = initialState, action) => {
         case PERFORM_HIT:
             let player = state.manager.getRealPlayer();
             player.performHit(action.row, action.column);
-            break;
-
-        case RUN_GAME:
-            state.manager.startGame();
+            newState = {...state};
             break;
 
         case INITIALIZE_NEXT_PLAYER:
             state.manager.initializeNextPlayer(action.name);
+            newState = {...state};
             break;
 
         case START_NEW_GAME:
             const manager = new GameManager();
             newState = {
-                ...state,
+                ...initialState,
                 manager,
+                gameLaunched: true
             };
             break;
         default:
@@ -42,9 +42,14 @@ const gameReducer = (state = initialState, action) => {
     return {
         ...newState,
         gameState: newState.manager.state,
-        enemyField: newState.manager.getAIPlayerField(),
-        initializingPlayer: newState.manager.getPlayerById(newState.gameState.currentInitializingPlayerId),
+        enemyField: {...newState.manager.getAIPlayer().field},
+        myField: {...newState.manager.getRealPlayer().field},
+        initializingPlayer: newState.manager.getPlayerById(newState.manager.state.currentInitializingPlayerId),
     }
 };
+
+export const startNewGame = () => ({type: START_NEW_GAME});
+export const initializeNextPlayer = (name) => ({type: INITIALIZE_NEXT_PLAYER, name});
+export const performHit = (row, column) => ({type: PERFORM_HIT, row, column});
 
 export default gameReducer;

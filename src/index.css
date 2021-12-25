@@ -21,10 +21,21 @@ code {
 
 .App > div {
   display: grid;
-  grid-template: 100% / repeat(10, 1fr);
+  grid-template: 100% / repeat(2, 1fr);
+  grid-gap: 50px;
 }
 
 .App > div > div {
+  display: grid;
+  grid-template: repeat(10, 1fr) / 100%;
+}
+
+.App > div > div > div {
+  display: grid;
+  grid-template: 100% / repeat(10, 1fr);
+}
+
+.App > div > div > div > div {
   display: flex;
   justify-content: center;
 }
