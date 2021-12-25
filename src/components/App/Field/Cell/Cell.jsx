@@ -1,8 +1,9 @@
 import React from 'react';
+import s from './Cell.module.css';
 
 const Cell = ({isMyCell, value, isHit, performHit}) => {
     return (
-        <div onClick={() => performHit()}>
+        <div onClick={() => performHit()} className={s.cell}>
             {
                 isHit &&
                 <p>{value + " hit"}</p>

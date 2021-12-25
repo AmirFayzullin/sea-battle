@@ -3,40 +3,48 @@ import {AIPlayer, Player} from "./Player";
 
 export class GameManager {
     id;
-    _playerIdWithCurrentTurn;
     players = [];
     listeners = [];
     state = {
         initialized: false,
-        currentInitializingPlayerId: null,
+        currentInitializingPlayer: null,
         started: false,
         finished: false,
+        playerMakingTurn: null,
         winner: null,
+
     };
 
     constructor() {
         this.id = genId();
         this.players = [new Player(this), new AIPlayer(this)];
-        this.state.currentInitializingPlayerId = this.players[0].id;
+        this.state.currentInitializingPlayer = this.players[0];
     }
 
     initializeNextPlayer = (name) => {
-        let player = this.players.find(player => player.id === this.state.currentInitializingPlayerId);
-        player.initialize(name);
+        this.state.currentInitializingPlayer.initialize(name);
         let uninitializedPlayer = this.players.find(player => !player.isInitialized());
 
         if (!uninitializedPlayer) {
-            this.state = {...this.state, initialized: true, currentInitializingPlayerId: null};
+            this.state = {
+                ...this.state,
+                initialized: true,
+                currentInitializingPlayer: null
+            };
             this._startGame();
         }
-        else this.state.currentInitializingPlayerId = uninitializedPlayer.id;
+        else this.state.currentInitializingPlayer = uninitializedPlayer;
         this.notifyListeners();
     };
 
     _startGame = () => {
         if (!this.state.initialized) return;
-        this.state.started = true;
-        this._playerIdWithCurrentTurn = this.players.find(player => !player.isAI).id;
+        this.state = {
+            ...this.state,
+            started: true,
+            playerMakingTurn: this.getRealPlayer(),
+        };
+
         this.notifyListeners();
     };
 
@@ -52,18 +60,20 @@ export class GameManager {
             this.state = {
                 ...this.state,
                 winner: this.getActivePlayer(),
-                finished: true
+                finished: true,
+                playerMakingTurn: null
             };
-            this._playerIdWithCurrentTurn = null;
         }
-        else {
-            this._playerIdWithCurrentTurn = victim.id;
-        }
+        else this.changePlayerMakingTurn();
         this.notifyListeners();
     };
 
-    getActivePlayer = () => this.players.find(player => player.id === this._playerIdWithCurrentTurn);
-    getIdlePlayer = () => this.players.find(player => player.id !== this._playerIdWithCurrentTurn);
+    changePlayerMakingTurn = () => {
+        this.state.playerMakingTurn = this.getIdlePlayer();
+    };
+
+    getActivePlayer = () => this.state.playerMakingTurn;
+    getIdlePlayer = () => this.players.find(player => player.id !== this.state.playerMakingTurn.id);
     getRealPlayer = () => this.players.find(player => !player.isAI);
     getAIPlayer = () => this.players.find(player => player.isAI);
 

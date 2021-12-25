@@ -4,6 +4,7 @@ import {handleGameManagerUpdate, performHit, startNewGame} from "../../../store/
 import PlayersInitializationWidget from "../PlayersInitializationWidget/PlayersInitializationWidget";
 import ResultsWidget from "../ResultsWidget/ResultsWidget";
 import Field from "../Field/Field";
+import Scene from "../Scene/Scene";
 
 const App = ({
                  enemyField, initialized, finished,
@@ -28,13 +29,7 @@ const App = ({
     return (
         <>
             <div className="App">
-                {started &&
-                    <div>
-                        <Field map={enemyField.map} performHit={(row, column) => performHit(row, column)} isMyField={true}/>
-                        <Field map={myField.map} performHit={() => {}} isMyField={false}/>
-                    </div>
-
-                }
+                {started && <Scene/>}
                 {!initialized && <PlayersInitializationWidget/>}
                 {finished && <ResultsWidget startNewGame={() => newGame()}/>}
             </div>

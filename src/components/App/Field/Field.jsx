@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from "./Cell/Cell";
+import s from './Field.module.css';
 
 const Field = ({map, isMyField, performHit}) => {
      map = map.map((row, rowIndex) => {
@@ -12,11 +13,11 @@ const Field = ({map, isMyField, performHit}) => {
                  isMyCell={isMyField}
              />
          });
-         return <div>{r}</div>
+         return <div className={s.row}>{r}</div>
      });
 
     return (
-        <div>
+        <div className={s.field}>
             {map}
         </div>
     )
