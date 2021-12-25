@@ -3,21 +3,28 @@ import {genId, genRandom} from "../utils";
 
 export class Player {
     id;
+    isAI = false;
     field;
-    name;
+    name = null;
     _gameManager;
     _myTurn = false;
 
-    constructor(name, gameManager) {
+    constructor(gameManager) {
         this.id = genId();
         this.field = new Field();
-        this.name = name;
         this._gameManager = gameManager;
         this._gameManager.subscribe(this._handleManagerUpdate);
     }
 
+    initialize = (name) => {
+        this.name = this.name || name;
+    };
+
+    isInitialized = () => !!this.name;
+
     _handleManagerUpdate = () => {
-        this._myTurn = this._gameManager.playerIdWithCurrentTurn === this.id;
+        let activePlayer = this._gameManager.getActivePlayer();
+        this._myTurn = activePlayer && activePlayer.id === this.id;
         this._onManagerUpdate();
     };
 
@@ -38,8 +45,9 @@ export class Player {
 }
 
 export class AIPlayer extends Player {
-    constructor(name, gameManager) {
-        super(name, gameManager);
+    constructor(gameManager) {
+        super(gameManager);
+        this.isAI = true;
         this.unhitCells = Array(100);
         for (let row = 0; row < 10; row++)
             for (let column = 0; column < 10; column++)
