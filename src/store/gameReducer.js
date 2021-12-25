@@ -1,6 +1,7 @@
-import {GameManager} from "../Game/GameManager";
+import {GameManagerFactory} from "../Game/GameManager";
 
 const initialState = {
+    managerFactory: new GameManagerFactory(),
     manager: null,
     gameState: null,
     enemyField: null,
@@ -12,6 +13,7 @@ const initialState = {
 const START_NEW_GAME = "GAME/START_NEW_GAME";
 const INITIALIZE_NEXT_PLAYER = "GAME/INITIALIZE_NEW_PLAYER";
 const PERFORM_HIT = "GAME/PERFORM_HIT";
+const HANDLE_MANAGER_UPDATE = "GAME/HANDLE_MANAGER_UPDATE";
 
 const gameReducer = (state = initialState, action) => {
     let newState;
@@ -27,12 +29,14 @@ const gameReducer = (state = initialState, action) => {
             newState = {...state};
             break;
 
-        case START_NEW_GAME:
-            const manager = new GameManager();
+        case HANDLE_MANAGER_UPDATE:
+            newState = {...state};
+            break;
 
+        case START_NEW_GAME:
             newState = {
                 ...initialState,
-                manager,
+                manager: action.manager,
                 gameLaunched: true
             };
             break;
@@ -49,8 +53,9 @@ const gameReducer = (state = initialState, action) => {
     }
 };
 
-export const startNewGame = () => ({type: START_NEW_GAME});
+export const startNewGame = (manager) => ({type: START_NEW_GAME, manager});
 export const initializeNextPlayer = (name) => ({type: INITIALIZE_NEXT_PLAYER, name});
 export const performHit = (row, column) => ({type: PERFORM_HIT, row, column});
+export const handleGameManagerUpdate = () => ({type: HANDLE_MANAGER_UPDATE});
 
 export default gameReducer;

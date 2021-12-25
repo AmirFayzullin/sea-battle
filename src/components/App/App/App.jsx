@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {performHit, startNewGame} from "../../../store/gameReducer";
+import {handleGameManagerUpdate, performHit, startNewGame} from "../../../store/gameReducer";
 import PlayersInitializationWidget from "../PlayersInitializationWidget/PlayersInitializationWidget";
 import ResultsWidget from "../ResultsWidget/ResultsWidget";
 import Field from "../Field/Field";
@@ -8,10 +8,22 @@ import Field from "../Field/Field";
 const App = ({
                  enemyField, initialized, finished,
                  started, startNewGame, performHit,
-                 gameLaunched, myField
+                 gameLaunched, myField, gameManagerFactory,
+                 handleGameManagerUpdate
 }) => {
+    const newGame = () => {
+        // setTimeout because without it "Reducer may not dispatch actions" error occurs, it seems like redux issue
+        // https://github.com/reduxjs/redux-thunk/issues/122
 
-    if (!gameLaunched) return <div onClick={startNewGame}>Launch</div>;
+        const gameManager = gameManagerFactory.createGameManager({
+            listeners: [
+                () => setTimeout(() => handleGameManagerUpdate())
+            ]
+        });
+        startNewGame(gameManager);
+    };
+
+    if (!gameLaunched) return <div onClick={() => newGame()}>Launch</div>;
 
     return (
         <>
@@ -24,7 +36,7 @@ const App = ({
 
                 }
                 {!initialized && <PlayersInitializationWidget/>}
-                {finished && <ResultsWidget/>}
+                {finished && <ResultsWidget startNewGame={() => newGame()}/>}
             </div>
         </>
     );
@@ -33,6 +45,7 @@ const App = ({
 const mstp = (state) => {
     const gameState = state.game.gameState;
     return {
+        gameManagerFactory: state.game.managerFactory,
         enemyField: state.game.enemyField,
         myField: state.game.myField,
         initialized: gameState?.initialized,
@@ -43,5 +56,5 @@ const mstp = (state) => {
 };
 
 export default connect(mstp, {
-    startNewGame, performHit,
+    startNewGame, performHit, handleGameManagerUpdate
 })(App);

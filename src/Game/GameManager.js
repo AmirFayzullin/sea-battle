@@ -41,7 +41,7 @@ export class GameManager {
     };
 
     subscribe = (handler) => {
-        this.listeners.push(handler);
+        this.listeners = [...this.listeners, handler];
     };
 
     performHit = (row, column) => {
@@ -72,4 +72,19 @@ export class GameManager {
     notifyListeners = () => {
         this.listeners.forEach(listener => listener());
     }
+}
+
+export class GameManagerFactory {
+    DEFAULT_SETTINGS = {
+        listeners: []
+    };
+
+    createGameManager = (s) => {
+        const settings = {...this.DEFAULT_SETTINGS, ...s};
+        let manager = new GameManager();
+
+        settings.listeners.forEach(listener => manager.subscribe(listener));
+        return manager;
+    }
+
 }

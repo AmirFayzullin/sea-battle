@@ -55,15 +55,20 @@ export class AIPlayer extends Player {
     }
 
     _onManagerUpdate = () => {
+        this._makeTurn();
+    };
+
+    _makeTurn = () => {
         if (!this._myTurn) return;
         let hitPerformed = false;
+        setTimeout(() => {
+            while (!hitPerformed) {
+                const i = genRandom(0, this.unhitCells.length - 1);
 
-        while (!hitPerformed) {
-            const i = genRandom(0, this.unhitCells.length - 1);
-
-            this.performHit(this.unhitCells[i].row, this.unhitCells[i].column);
-            this.unhitCells = this.unhitCells.filter(cell => cell !== this.unhitCells[i]);
-            hitPerformed = true;
-        }
-    };
+                this.performHit(this.unhitCells[i].row, this.unhitCells[i].column);
+                this.unhitCells = this.unhitCells.filter(cell => cell !== this.unhitCells[i]);
+                hitPerformed = true;
+            }
+        }, 1000);
+    }
 }
