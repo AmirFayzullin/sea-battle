@@ -1,3 +1,4 @@
+// represents cell of the map
 export class Cell {
     static EMPTY_VALUE = 0;
     value = Cell.EMPTY_VALUE;
@@ -18,7 +19,7 @@ export class Cell {
 
     hit = () => this._hit = true;
     isHit = () => this._hit;
-    isEmpty = () => this.value === Cell.EMPTY_VALUE;
+    isWater = () => this.value === Cell.EMPTY_VALUE;
     isShip = () => this.value !== Cell.EMPTY_VALUE;
 }
 
