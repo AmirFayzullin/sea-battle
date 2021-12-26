@@ -43,6 +43,10 @@
     background-color: #000000;
 }
 
+.cell.ship.destroyed {
+    background-image: url("../../../../assets/skull.svg") !important;
+}
+
 
 @keyframes explosion-anim {
     0% {
@@ -67,7 +71,7 @@
     }
     100% {
         background-image: url("../../../../assets/half-bullet.svg");
-        background-size: 20%;
+        background-size: 40%;
     }
 }
 

@@ -5,23 +5,21 @@ import {performHit} from "../../store/gameReducer";
 import SceneHeader from "./SceneHeader/SceneHeader";
 import s from './Scene.module.css';
 
-const Scene = ({enemyField, me, enemy, myField, performHit}) => {
+const Scene = ({me, enemy, performHit}) => {
     return (
         <div className={s.scene}>
             <header className={s.header}>
                 <SceneHeader/>
             </header>
             <div className={s.fields}>
-                <Field map={myField.map} player={me} field={myField} performHit={() => {}} isMyField={true}/>
-                <Field map={enemyField.map} player={enemy} field={enemyField} performHit={(row, column) => performHit(row, column)} isMyField={false}/>
+                <Field player={me} performHit={() => {}} isMyField={true}/>
+                <Field player={enemy} performHit={(row, column) => performHit(row, column)} isMyField={false}/>
             </div>
         </div>
     )
 };
 
 const mstp = (state) => ({
-    enemyField: state.game.enemyField,
-    myField: state.game.myField,
     me: state.game.me,
     enemy: state.game.enemy,
 });

@@ -3,7 +3,7 @@ import Map from "./Map/Map";
 import s from './Field.module.css';
 import PlayerInfo from "./PlayerInfo/PlayerInfo";
 
-const Field = ({map, player, field, isMyField, performHit}) => {
+const Field = ({player, isMyField, performHit}) => {
 
     return (
         <div className={s.field}>
@@ -11,7 +11,7 @@ const Field = ({map, player, field, isMyField, performHit}) => {
                 <PlayerInfo player={player}/>
             </div>
             <div className={s.map}>
-                <Map map={map} field={field} isMyField={isMyField} performHit={performHit}/>
+                <Map map={player.field.map} ships={player.field._ships} isMyField={isMyField} performHit={performHit}/>
             </div>
         </div>
     )

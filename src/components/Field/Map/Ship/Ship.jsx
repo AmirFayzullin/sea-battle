@@ -13,6 +13,7 @@ const Ship = ({ship, myShip, performHit}) => {
             isHit={cell.isHit()}
             isShip={cell.isShip()}
             isMyCell={myShip}
+            destroyedShip={ship.isDestroyed()}
         />
     );
 

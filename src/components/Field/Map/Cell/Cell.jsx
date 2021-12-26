@@ -2,11 +2,12 @@ import React from 'react';
 import cn from 'classnames';
 import s from './Cell.module.css';
 
-const Cell = ({isMyCell, isShip, isHit, performHit}) => {
+const Cell = ({isMyCell, isShip, isHit, performHit, destroyedShip = false}) => {
     const style = cn(s.cell, {
         [s.hit]: isHit,
         [s.enemyCell]: !isMyCell,
-        [s.ship]: isShip && (isMyCell || isHit)
+        [s.ship]: isShip && (isMyCell || isHit),
+        [s.destroyed]: destroyedShip
     });
 
     return (

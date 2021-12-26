@@ -51,8 +51,8 @@ const gameReducer = (state = initialState, action) => {
         gameState: newState.manager.state,
         enemyField: {...newState.manager.getAIPlayer().field},
         myField: {...newState.manager.getRealPlayer().field},
-        me: newState.manager.getRealPlayer(),
-        enemy: newState.manager.getAIPlayer(),
+        me: {...newState.manager.getRealPlayer()},
+        enemy: {...newState.manager.getAIPlayer()},
         initializingPlayer: newState.manager.state.currentInitializingPlayer,
     }
 };

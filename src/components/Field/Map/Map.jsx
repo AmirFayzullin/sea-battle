@@ -3,9 +3,9 @@ import Cell from "./Cell/Cell";
 import s from './Map.module.css';
 import Ship from "./Ship/Ship";
 
-const Map = ({map, field, isMyField, performHit}) => {
+const Map = ({map, ships, isMyField, performHit}) => {
     let totalShipsLen = 0;
-    let ships = field._ships.map((ship, index) => {
+    let shipsView = ships.map((ship, index) => {
         totalShipsLen += ship.len;
         return <Ship key={index} ship={ship} performHit={performHit} myShip={isMyField}/>;
     });
@@ -26,7 +26,7 @@ const Map = ({map, field, isMyField, performHit}) => {
 
     return (
         <div className={s.map}>
-            {ships}
+            {shipsView}
             {emptyCells}
         </div>
     )
