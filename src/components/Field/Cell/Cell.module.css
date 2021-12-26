@@ -5,21 +5,54 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: solid 5px;
+    border: solid 1px;
     cursor: pointer;
-    background: hsl(210, 50%, 50%);
     box-sizing: border-box;
+    background: hsl(210, 50%, 50%) no-repeat center;
+    background-size: 50%;
 }
 
 .cell.ship {
-    background: grey;
+    background-color: #000000;
 }
 
 .cell.hit {
-    border: solid 5px red;
+    animation: water-splash-anim .7s forwards;
+}
+
+.cell.ship.hit {
+    animation: explosion-anim 1s forwards !important;
 }
 
 .cell.enemyCell {
     cursor: pointer;
 }
+
+
+@keyframes explosion-anim {
+    0% {
+        background-image: url("../../../assets/explosion.gif");
+    }
+    99% {
+        background-image: url("../../../assets/explosion.gif");
+    }
+    100% {
+        background-image: url("../../../assets/fire.gif");
+    }
+}
+
+@keyframes water-splash-anim {
+    0% {
+        background-image: url("../../../assets/water-splash.gif");
+        background-size: 70%;
+    }
+    99% {
+        background-image: url("../../../assets/water-splash.gif");
+    }
+    100% {
+        background-image: url("../../../assets/half-bullet.svg");
+        background-size: 20%;
+    }
+}
+
 

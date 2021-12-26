@@ -35,7 +35,7 @@ const Ship = ({ship, myShip, performHit}) => {
 
     return (
         <div style={style}
-             className={cn(s.ship, {
+             className={cn(s.wrapper, {
                  [s.horizontal]: horizontal,
                  [s.vertical]: !horizontal
              })}

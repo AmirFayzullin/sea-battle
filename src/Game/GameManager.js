@@ -54,6 +54,8 @@ export class GameManager {
 
     performHit = (row, column) => {
         const victim = this.getIdlePlayer();
+        if (victim.field.isHitCell(row, column)) return;
+
         const shipHit = victim.takeHit(row, column);
 
         if (victim.isLose()) {

@@ -10,7 +10,8 @@ const Cell = ({isMyCell, isShip, isHit, performHit}) => {
     });
 
     return (
-        <div onClick={() => performHit()} className={style}> </div>
+        <div onClick={() => performHit()} className={style}>
+        </div>
     )
 };
 

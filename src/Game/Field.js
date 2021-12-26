@@ -126,6 +126,7 @@ class Field {
     };
 
     isInitialized = () => this._initialized;
+    isHitCell = (row, column) => this.map[row][column].isHit();
 
     areAllShipsDestroyed = () => this._areAllShipsDestroyed;
 }
