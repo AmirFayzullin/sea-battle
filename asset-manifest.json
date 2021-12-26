@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/sea-battle/static/css/main.e9735680.css",
+    "main.js": "/sea-battle/static/js/main.b3ef0563.js",
+    "static/media/fire.gif": "/sea-battle/static/media/fire.1757a0cf9413e3de668a.gif",
+    "static/media/explosion.gif": "/sea-battle/static/media/explosion.921acaab2a97f422cf93.gif",
+    "static/media/water-splash.gif": "/sea-battle/static/media/water-splash.0d828eb931dae36f1806.gif",
+    "static/media/skull.svg": "/sea-battle/static/media/skull.fdb920f4398547aa641c.svg",
+    "static/media/half-bullet.svg": "/sea-battle/static/media/half-bullet.16bc2732df781fd2d68a.svg",
+    "index.html": "/sea-battle/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.e9735680.css",
+    "static/js/main.b3ef0563.js"
+  ]
+}
