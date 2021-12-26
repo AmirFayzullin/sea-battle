@@ -11,7 +11,7 @@ const Field = ({player, isMyField, performHit}) => {
                 <PlayerInfo player={player}/>
             </div>
             <div className={s.map}>
-                <Map map={player.field.map} ships={player.field._ships} isMyField={isMyField} performHit={performHit}/>
+                <Map map={player.field.map} ships={player.field.ships} isMyField={isMyField} performHit={performHit}/>
             </div>
         </div>
     )

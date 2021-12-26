@@ -4,7 +4,7 @@ import {AIPlayer, Player} from "./Player";
 export class GameManager {
     id;
     players = [];
-    listeners = [];
+    _listeners = [];
     state = {
         initialized: false,
         currentInitializingPlayer: null,
@@ -34,7 +34,7 @@ export class GameManager {
             this._startGame();
         }
         else this.state.currentInitializingPlayer = uninitializedPlayer;
-        this.notifyListeners();
+        this._notifyListeners();
     };
 
     _startGame = () => {
@@ -45,11 +45,11 @@ export class GameManager {
             playerMakingTurn: this.getRealPlayer(),
         };
 
-        this.notifyListeners();
+        this._notifyListeners();
     };
 
     subscribe = (handler) => {
-        this.listeners = [...this.listeners, handler];
+        this._listeners = [...this._listeners, handler];
     };
 
     performHit = (row, column) => {
@@ -67,12 +67,12 @@ export class GameManager {
             };
         }
         else if (!shipHit) {
-            this.changePlayerMakingTurn();
+            this._changePlayerMakingTurn();
         }
-        this.notifyListeners();
+        this._notifyListeners();
     };
 
-    changePlayerMakingTurn = () => {
+    _changePlayerMakingTurn = () => {
         this.state.playerMakingTurn = this.getIdlePlayer();
     };
 
@@ -81,10 +81,8 @@ export class GameManager {
     getRealPlayer = () => this.players.find(player => !player.isAI);
     getAIPlayer = () => this.players.find(player => player.isAI);
 
-    getPlayerById = (id) => this.players.find(player => player.id === id);
-
-    notifyListeners = () => {
-        this.listeners.forEach(listener => listener());
+    _notifyListeners = () => {
+        this._listeners.forEach(listener => listener());
     }
 }
 

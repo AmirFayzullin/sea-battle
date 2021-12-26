@@ -3,14 +3,14 @@ import s from './PlayerInfo.module.css';
 import ShipInfo from "./ShipInfo/ShipInfo";
 
 const PlayerInfo = ({player}) => {
-    const shipsLeft = player.field._ships.reduce(
+    const shipsLeft = player.field.ships.reduce(
         (prev, current) => prev + (current.isDestroyed() ? 0 : current.len),
         0
     );
 
     let shipsData = []; // [{len, count}]
 
-    player.field._ships.forEach((ship) => {
+    player.field.ships.forEach((ship) => {
         let existingShipsData = shipsData.find(shipData => shipData.len === ship.len);
 
         if (!existingShipsData) {

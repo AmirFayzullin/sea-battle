@@ -4,8 +4,8 @@ import cn from 'classnames';
 import s from './Ship.module.css';
 
 const Ship = ({ship, myShip, performHit}) => {
-    const occupiedCells = ship._occupiedCells;
-    const len = ship._occupiedCells.length;
+    const occupiedCells = ship.occupiedCells;
+    const len = ship.occupiedCells.length;
     const cells = occupiedCells.map((cell, index) =>
         <Cell
             key={index}

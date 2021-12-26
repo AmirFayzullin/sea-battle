@@ -23,7 +23,7 @@ class Field {
         }
     ];
     _PLACING_ATTEMPTS_COUNT = 500;
-    _ships = [];
+    ships = [];
     _areAllShipsDestroyed = false;
     _initialized = false;
 
@@ -49,7 +49,7 @@ class Field {
 
     _placeShip = (shipLen) => {
         let ship = new Ship(shipLen);
-        this._ships.push(ship);
+        this.ships.push(ship);
         let success = false;
         let counter = this._PLACING_ATTEMPTS_COUNT;
 
@@ -79,7 +79,7 @@ class Field {
 
         for (let i = 0; i < ship.len && success; i++) {
             this.map[row + i][column].value = ship.id;
-            ship._occupiedCells.push(this.map[row + i][column]);
+            ship.occupiedCells.push(this.map[row + i][column]);
         }
 
         return success;
@@ -99,7 +99,7 @@ class Field {
 
         for (let i = 0; i < ship.len && success; i++) {
             this.map[row][column + i].value = ship.id;
-            ship._occupiedCells.push(this.map[row][column + i]);
+            ship.occupiedCells.push(this.map[row][column + i]);
         }
 
         return success;
@@ -108,7 +108,7 @@ class Field {
     performHit = (row, column) => {
         let shipHit = false;
 
-        this._ships.forEach(ship => {
+        this.ships.forEach(ship => {
             if (ship.hit(row, column)) {
                 shipHit = true;
             }
@@ -121,7 +121,7 @@ class Field {
     };
 
     _checkShipsDestroy = () => {
-        this._areAllShipsDestroyed = this._ships.every(ship => ship.isDestroyed());
+        this._areAllShipsDestroyed = this.ships.every(ship => ship.isDestroyed());
     };
 
     isInitialized = () => this._initialized;
