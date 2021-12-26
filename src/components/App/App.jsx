@@ -24,20 +24,13 @@ const App = ({
         startNewGame(gameManager);
     };
 
-    if (!gameLaunched) return (
-        <div className={s.app}>
-            <div className={s.curtain}>
-                <Menu startNewGame={() => newGame()}/>
-            </div>
-        </div>
-    );
-
     return (
         <div className={s.app}>
             <div className={s.curtain}>
-                {started && <Scene/>}
-                {!initialized && <PlayersInitializationWidget/>}
-                {finished && <ResultsWidget startNewGame={() => newGame()}/>}
+                {!gameLaunched && <Menu startNewGame={() => newGame()}/>}
+                {gameLaunched && started && <Scene/>}
+                {gameLaunched && !initialized && <PlayersInitializationWidget/>}
+                {gameLaunched && finished && <ResultsWidget startNewGame={() => newGame()}/>}
             </div>
         </div>
     );

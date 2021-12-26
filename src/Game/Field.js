@@ -7,7 +7,7 @@ class Field {
     _DEFAULT_SHIPS_SET = [
         {
             shipLen: 1,
-            count: 2
+            count: 4
         },
         {
             shipLen: 2,
