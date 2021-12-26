@@ -12,6 +12,10 @@ const App = ({
                  startNewGame, gameLaunched, gameManagerFactory,
                  handleGameManagerUpdate
              }) => {
+
+    // starts new game, creating new game manager using factory
+    // and subscribes listener of game manager updates which will be
+    // handled in gameReducer
     const newGame = () => {
         // setTimeout because without it "Reducer may not dispatch actions" error occurs, it seems like redux issue
         // https://github.com/reduxjs/redux-thunk/issues/122

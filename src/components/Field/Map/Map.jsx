@@ -3,14 +3,20 @@ import Cell from "./Cell/Cell";
 import s from './Map.module.css';
 import Ship from "./Ship/Ship";
 
+// renders map of cells and ships
+// map = Field.map, ships = [Ship,...], isMyField = bool, performHit = callback
 const Map = ({map, ships, isMyField, performHit}) => {
     let totalShipsLen = 0;
+
+    // creating ships
     let shipsView = ships.map((ship, index) => {
         totalShipsLen += ship.len;
         return <Ship key={index} ship={ship} performHit={performHit} myShip={isMyField}/>;
     });
 
     let emptyCells = [];
+
+    // creating "water" cells
     map.flat().forEach((cell, index) => {
         if (cell.isShip()) return;
 

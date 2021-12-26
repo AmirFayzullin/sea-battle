@@ -2,6 +2,8 @@ import React from 'react';
 import s from './ShipInfo.module.css';
 import Cell from "../../Map/Cell/Cell";
 
+// renders information about left ships with certain length
+// len = number, count = number
 const ShipInfo = ({len, count}) => {
 
     let shipModel = [];

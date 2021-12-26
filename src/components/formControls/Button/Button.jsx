@@ -3,6 +3,7 @@ import s from './Button.module.css';
 import controlS from './../formControl.module.css';
 import cn from 'classnames';
 
+// custom button
 const Button = ({onClick, className, disabled, children}) => {
     const style = cn(s.button, controlS.control, className, {
         [s.disabled]: disabled

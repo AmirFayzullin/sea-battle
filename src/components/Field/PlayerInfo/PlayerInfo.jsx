@@ -2,14 +2,12 @@ import React from 'react';
 import s from './PlayerInfo.module.css';
 import ShipInfo from "./ShipInfo/ShipInfo";
 
+// renders player information(left ships, name)
+// player = Player instance
 const PlayerInfo = ({player}) => {
-    const shipsLeft = player.field.ships.reduce(
-        (prev, current) => prev + (current.isDestroyed() ? 0 : current.len),
-        0
-    );
+    let shipsData = []; // [{len, count}] len - ship length, count - amount of ships with "len" length
 
-    let shipsData = []; // [{len, count}]
-
+    // filling shipsData
     player.field.ships.forEach((ship) => {
         let existingShipsData = shipsData.find(shipData => shipData.len === ship.len);
 
@@ -23,7 +21,10 @@ const PlayerInfo = ({player}) => {
         }
     });
 
-    let shipsDataView = shipsData.map((shipData, index) => <ShipInfo {...shipData} key={index}/>);
+    // creates ShipInfo basing on shipsData
+    let shipsDataView = shipsData.map(
+        (shipData, index) => <ShipInfo {...shipData} key={index}/>
+        );
 
     return (
         <div className={s.wrapper}>
