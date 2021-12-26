@@ -1,0 +1,13 @@
+.wrapper {
+    display: grid;
+    grid-template: auto / min-content min-content;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+}
+
+.shipModel {
+    display: grid;
+    grid-auto-rows: 15px;
+    grid-template-columns: 15px;
+}

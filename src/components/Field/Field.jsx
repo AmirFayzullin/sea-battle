@@ -1,33 +1,18 @@
 import React from 'react';
-import Cell from "./Cell/Cell";
+import Map from "./Map/Map";
 import s from './Field.module.css';
-import Ship from "./Ship/Ship";
+import PlayerInfo from "./PlayerInfo/PlayerInfo";
 
-const Field = ({map, field, isMyField, performHit}) => {
-    let totalShipsLen = 0;
-    let ships = field._ships.map((ship, index) => {
-        totalShipsLen += ship.len;
-        return <Ship key={index} ship={ship} performHit={performHit} myShip={isMyField}/>;
-    });
-
-    let emptyCells = [];
-    map.flat().forEach((cell, index) => {
-        if (cell.isShip()) return;
-
-        emptyCells.push(
-            <Cell key={index}
-                  performHit={() => !isMyField && performHit(cell.row, cell.column)}
-                  isHit={cell.isHit()}
-                  isShip={cell.isShip()}
-                  isMyCell={isMyField}
-            />
-        )
-    });
+const Field = ({map, player, field, isMyField, performHit}) => {
 
     return (
         <div className={s.field}>
-            {ships}
-            {emptyCells}
+            <div className={s.info}>
+                <PlayerInfo player={player}/>
+            </div>
+            <div className={s.map}>
+                <Map map={map} field={field} isMyField={isMyField} performHit={performHit}/>
+            </div>
         </div>
     )
 };

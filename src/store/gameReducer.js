@@ -4,6 +4,8 @@ const initialState = {
     managerFactory: new GameManagerFactory(),
     manager: null,
     gameState: null,
+    me: null,
+    enemy: null,
     enemyField: null,
     myField: null,
     initializingPlayer: null,
@@ -49,6 +51,8 @@ const gameReducer = (state = initialState, action) => {
         gameState: newState.manager.state,
         enemyField: {...newState.manager.getAIPlayer().field},
         myField: {...newState.manager.getRealPlayer().field},
+        me: newState.manager.getRealPlayer(),
+        enemy: newState.manager.getAIPlayer(),
         initializingPlayer: newState.manager.state.currentInitializingPlayer,
     }
 };

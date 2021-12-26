@@ -15,7 +15,8 @@
     height: 100%;
     padding: 0 10%;
     display: grid;
-    grid-template: 50% / 1fr 1fr;
+    grid-template: auto / auto auto;
+    justify-content: space-around;
     grid-gap: 50px;
     box-sizing: border-box;
 }
