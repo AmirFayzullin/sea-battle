@@ -17,7 +17,7 @@
 }
 
 .cell.hit {
-    animation: water-splash-anim .7s forwards;
+    animation: water-splash-anim 1s forwards;
 }
 
 .cell.ship.hit {
