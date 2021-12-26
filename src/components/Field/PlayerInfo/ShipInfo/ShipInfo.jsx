@@ -7,7 +7,7 @@ const ShipInfo = ({len, count}) => {
     let shipModel = [];
     for (let i = 0; i < len; i++)
         shipModel.push(
-            <Cell performHit={() => {}} isMyCell={true} isHit={false} isShip={true}/>
+            <Cell key={i} performHit={() => {}} isMyCell={true} isHit={false} isShip={true}/>
         );
 
 
@@ -16,7 +16,7 @@ const ShipInfo = ({len, count}) => {
             <div className={s.shipModel}>
                 {shipModel}
             </div>
-            <div>
+            <div className={s.count}>
                 {"x" + count}
             </div>
         </div>

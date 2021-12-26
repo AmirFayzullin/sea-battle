@@ -7,7 +7,7 @@ class Field {
     _DEFAULT_SHIPS_SET = [
         {
             shipLen: 1,
-            count: 4
+            count: 2
         },
         {
             shipLen: 2,
@@ -35,19 +35,19 @@ class Field {
             for (let column = 0; column < 10; column++)
                 this.map[row][column] = new Cell(row, column);
 
-        this.initMap();
+        this._initMap();
     }
 
-    initMap = () => {
+    _initMap = () => {
         let success = true;
         this._DEFAULT_SHIPS_SET.forEach((shipsSet) => {
-            for (let i = 0; i < shipsSet.count; i++) success &= this.placeShip(shipsSet.shipLen);
+            for (let i = 0; i < shipsSet.count; i++) success &= this._placeShip(shipsSet.shipLen);
         });
 
         this._initialized = success;
     };
 
-    placeShip = (shipLen) => {
+    _placeShip = (shipLen) => {
         let ship = new Ship(shipLen);
         this._ships.push(ship);
         let success = false;
@@ -111,7 +111,6 @@ class Field {
         this._ships.forEach(ship => {
             if (ship.hit(row, column)) {
                 shipHit = true;
-                console.log(ship.id);
             }
         });
 

@@ -1,6 +1,11 @@
-.map {
+.field {
     display: flex;
     flex-direction: column;
+    box-shadow: var(--layer-shadow);
+    padding: 30px;
+    border-radius: 16px;
+    height: min-content;
+    background: hsl(208, 52%, 36%);
 }
 
 .map {

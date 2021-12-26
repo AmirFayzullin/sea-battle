@@ -11,3 +11,7 @@
     grid-auto-rows: 15px;
     grid-template-columns: 15px;
 }
+
+.count {
+    color: var(--text-color);
+}

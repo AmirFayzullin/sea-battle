@@ -3,12 +3,12 @@ import {connect} from "react-redux";
 import Button from "../formControls/Button/Button";
 import s from './ResultsWidget.module.css';
 
-const ResultsWidget = ({winnerName, startNewGame}) => {
+const ResultsWidget = ({winner, startNewGame}) => {
     return (
         <div className={s.wrapper}>
             <div className={s.widget}>
                 <div className={s.title}>
-                    { (winnerName || "lool") + " won!" }
+                    { winner?.name + " won!" }
                 </div>
                 <Button onClick={() => startNewGame()}>Play again!</Button>
             </div>
@@ -17,7 +17,7 @@ const ResultsWidget = ({winnerName, startNewGame}) => {
 };
 
 const mstp = (state) => ({
-    winnerName: state.game.gameState?.winner?.name
+    winner: state.game.gameState?.winner
 });
 
 export default connect(mstp)(ResultsWidget);

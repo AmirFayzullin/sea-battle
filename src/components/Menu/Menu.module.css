@@ -8,20 +8,23 @@
 
 .menu {
     width: 30%;
-    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 30px;
+    border-radius: 16px;
+    background: hsl(210, 50%, 50%);
+    box-shadow: var(--layer-shadow);
 }
 
 .title {
     width: 100%;
     padding: 10px 0;
-    border-bottom: solid 2px;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
+    color: rgba(255, 255, 255, 0.81);
 }
 
 .options {

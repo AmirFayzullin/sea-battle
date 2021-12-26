@@ -26,15 +26,19 @@ const App = ({
 
     if (!gameLaunched) return (
         <div className={s.app}>
-            <Menu startNewGame={() => newGame()}/>
+            <div className={s.curtain}>
+                <Menu startNewGame={() => newGame()}/>
+            </div>
         </div>
     );
 
     return (
         <div className={s.app}>
-            {started && <Scene/>}
-            {!initialized && <PlayersInitializationWidget/>}
-            {finished && <ResultsWidget startNewGame={() => newGame()}/>}
+            <div className={s.curtain}>
+                {started && <Scene/>}
+                {!initialized && <PlayersInitializationWidget/>}
+                {finished && <ResultsWidget startNewGame={() => newGame()}/>}
+            </div>
         </div>
     );
 };
