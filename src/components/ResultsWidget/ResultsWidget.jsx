@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import Button from "../formControls/Button/Button";
 import s from './ResultsWidget.module.css';
 
+// renders results widget
+// winner = Player instance, startNewGame = callback
 const ResultsWidget = ({winner, startNewGame}) => {
     return (
         <div className={s.wrapper}>

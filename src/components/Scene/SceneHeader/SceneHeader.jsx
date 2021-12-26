@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import cn from 'classnames';
 import s from './SceneHeader.module.css';
 
+// renders scene header and current player which is making turn
+// playerMakingTurnId = string, me = Player instance, enemy = Player instance
 const SceneHeader = ({playerMakingTurnId, me, enemy}) => {
     return (
         <div className={s.sceneHeader}>

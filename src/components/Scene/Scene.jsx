@@ -5,6 +5,8 @@ import {performHit} from "../../store/gameReducer";
 import SceneHeader from "./SceneHeader/SceneHeader";
 import s from './Scene.module.css';
 
+// renders scene, where Fields are rendered
+// me = Player instance, enemy = Player instance, performHit = callback
 const Scene = ({me, enemy, performHit}) => {
     return (
         <div className={s.scene}>

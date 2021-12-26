@@ -2,6 +2,8 @@ import React from 'react';
 import s from './Menu.module.css';
 import Button from "../formControls/Button/Button";
 
+// renders menu
+// startNewGame = callback
 const Menu = ({startNewGame}) => {
     return (
         <div className={s.wrapper}>

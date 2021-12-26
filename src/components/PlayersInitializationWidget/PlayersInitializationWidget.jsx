@@ -5,6 +5,8 @@ import s from './PlayersInitializationWidget.module.css';
 import Input from "../formControls/Input/Input";
 import Button from "../formControls/Button/Button";
 
+// renders widget which is used to initialize players' names
+// isAI = bool, initializeNextPlayer = callback
 const PlayersInitializationWidget = ({isAI, initializeNextPlayer}) => {
     const [name, setName] = useState("");
 
